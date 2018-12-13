@@ -45,32 +45,97 @@ global.bruhdash = {
   },
 
   // returns a slice of array with n elements dropped from the beignning
-  drop: function() {},
+  drop: function(arr, n) {
+    if (n === undefined) {
+      n = 1;
+    }
+    return arr.slice(n);
+  },
 
   // returns a slice of array with n elements dropped from the end
-  dropRight: function() {},
+  dropRight: function(arr, n) {
+    if (n === undefined) {
+      n = 1;
+    }
+    if (n === 0) {
+      return arr;
+    }
+    n = -n;
+    arr.splice(n);
+    return arr;
+  },
 
   // creates a slice of an array with n elements taken from the beginning
-  take: function() {},
+  take: function(arr, n) {
+    if (n === undefined) {
+      n = 1;
+    }
+    arr.splice(n);
+    return arr;
+  },
 
   // creates a slice of an array with n elements taken from the end
-  takeRight: function() {},
+  takeRight: function(arr, n) {
+    if (n === undefined) {
+      n = 1;
+    }
+    if (n === 0) {
+      return [];
+    }
+    n = -n;
+    return arr.splice(n);
+  },
 
   // fills elements of array with specified value from the start index
   // up to but not including the end index
-  fill: function() {},
+  fill: function(arr, val, start, end) {
+    return arr.fill(val, start, end);
+  },
 
   // removes all given values from an array
-  pull: function() {},
+  pull: function(arr, ...val) {
+    for (var i = 0; i < val.length; i++) {
+      for (var k = 0; k < arr.length; k++) {
+        if (arr[k] === val[i]) {
+          arr.splice(k, 1);
+        }
+      }
+    }
+    return arr;
+  },
 
   // removes elements of an array corresponding to the given indices
-  pullAt: function() {},
+  pullAt: function(arr, index) {
+    var arrResult = [];
+    for (var i = 0; i < index.length; i++) {
+      arrResult.push(...arr.slice(index[i], index[i] + 1));
+    }
+    return arrResult;
+  },
 
   // creates an array excluding all the specified values
-  without: function() {},
+  without: function(arr, ...del) {
+    var arrResult = [];
+
+    arr.map(x => {
+      if (!del.includes(x)) {
+        arrResult.push(x);
+      }
+    });
+    return arrResult;
+  },
 
   // returns an array with specified values excluded
-  difference: function() {},
+  difference: function(arr, exclude) {
+    var arrResult = [];
+
+    arr.map(x => {
+      if (!exclude.includes(x)) {
+        arrResult.push(x);
+      }
+    });
+    return arrResult;
+  },
 
   /*******************
    *  STRETCH GOALS! *
